@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TopologyRouteImport } from './routes/topology'
+import { Route as SecurityRouteImport } from './routes/security'
 import { Route as RoadmapRouteImport } from './routes/roadmap'
 import { Route as PhasesRouteImport } from './routes/phases'
 import { Route as NetworkRouteImport } from './routes/network'
@@ -20,6 +21,11 @@ import { Route as IndexRouteImport } from './routes/index'
 const TopologyRoute = TopologyRouteImport.update({
   id: '/topology',
   path: '/topology',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SecurityRoute = SecurityRouteImport.update({
+  id: '/security',
+  path: '/security',
   getParentRoute: () => rootRouteImport,
 } as any)
 const RoadmapRoute = RoadmapRouteImport.update({
@@ -60,6 +66,7 @@ export interface FileRoutesByFullPath {
   '/network': typeof NetworkRoute
   '/phases': typeof PhasesRoute
   '/roadmap': typeof RoadmapRoute
+  '/security': typeof SecurityRoute
   '/topology': typeof TopologyRoute
 }
 export interface FileRoutesByTo {
@@ -69,6 +76,7 @@ export interface FileRoutesByTo {
   '/network': typeof NetworkRoute
   '/phases': typeof PhasesRoute
   '/roadmap': typeof RoadmapRoute
+  '/security': typeof SecurityRoute
   '/topology': typeof TopologyRoute
 }
 export interface FileRoutesById {
@@ -79,6 +87,7 @@ export interface FileRoutesById {
   '/network': typeof NetworkRoute
   '/phases': typeof PhasesRoute
   '/roadmap': typeof RoadmapRoute
+  '/security': typeof SecurityRoute
   '/topology': typeof TopologyRoute
 }
 export interface FileRouteTypes {
@@ -90,6 +99,7 @@ export interface FileRouteTypes {
     | '/network'
     | '/phases'
     | '/roadmap'
+    | '/security'
     | '/topology'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -99,6 +109,7 @@ export interface FileRouteTypes {
     | '/network'
     | '/phases'
     | '/roadmap'
+    | '/security'
     | '/topology'
   id:
     | '__root__'
@@ -108,6 +119,7 @@ export interface FileRouteTypes {
     | '/network'
     | '/phases'
     | '/roadmap'
+    | '/security'
     | '/topology'
   fileRoutesById: FileRoutesById
 }
@@ -118,6 +130,7 @@ export interface RootRouteChildren {
   NetworkRoute: typeof NetworkRoute
   PhasesRoute: typeof PhasesRoute
   RoadmapRoute: typeof RoadmapRoute
+  SecurityRoute: typeof SecurityRoute
   TopologyRoute: typeof TopologyRoute
 }
 
@@ -128,6 +141,13 @@ declare module '@tanstack/react-router' {
       path: '/topology'
       fullPath: '/topology'
       preLoaderRoute: typeof TopologyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/security': {
+      id: '/security'
+      path: '/security'
+      fullPath: '/security'
+      preLoaderRoute: typeof SecurityRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/roadmap': {
@@ -182,6 +202,7 @@ const rootRouteChildren: RootRouteChildren = {
   NetworkRoute: NetworkRoute,
   PhasesRoute: PhasesRoute,
   RoadmapRoute: RoadmapRoute,
+  SecurityRoute: SecurityRoute,
   TopologyRoute: TopologyRoute,
 }
 export const routeTree = rootRouteImport
