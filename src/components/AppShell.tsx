@@ -10,18 +10,37 @@ import {
   Lightbulb,
   Boxes,
   Cpu,
+  Sparkles,
+  Server,
+  HardDrive,
+  ListTree,
+  Mic,
+  PackageSearch,
 } from "lucide-react";
 
 const nav = [
-  { to: "/", label: "Visão Geral", icon: LayoutDashboard },
-  { to: "/phases", label: "Fases", icon: Layers },
-  { to: "/topology", label: "Topologia", icon: Network },
-  { to: "/network", label: "VLANs & IP", icon: Boxes },
-  { to: "/flows", label: "Fluxos", icon: Workflow },
-  { to: "/roadmap", label: "Roadmap & Investimento", icon: Map },
-  { to: "/advanced", label: "Observações Avançadas", icon: Lightbulb },
-  { to: "/security", label: "Segurança", icon: ShieldCheck },
+  { to: "/", label: "Visão Geral", icon: LayoutDashboard, group: "Início" },
+  { to: "/vision", label: "Visão Final", icon: Sparkles, group: "Início" },
+
+  { to: "/phases", label: "Fases", icon: Layers, group: "Hardware" },
+  { to: "/inventory", label: "Inventário", icon: PackageSearch, group: "Hardware" },
+
+  { to: "/topology", label: "Topologia", icon: Network, group: "Rede" },
+  { to: "/network", label: "VLANs & IP", icon: Boxes, group: "Rede" },
+
+  { to: "/proxmox", label: "Proxmox", icon: Server, group: "Plataforma" },
+  { to: "/storage", label: "Shared Storage", icon: HardDrive, group: "Plataforma" },
+  { to: "/services", label: "Mapa de Serviços", icon: ListTree, group: "Plataforma" },
+
+  { to: "/flows", label: "Fluxos", icon: Workflow, group: "IA" },
+  { to: "/jarvis", label: "Jarvis Mode", icon: Mic, group: "IA" },
+
+  { to: "/roadmap", label: "Roadmap & Investimento", icon: Map, group: "Projeto" },
+  { to: "/advanced", label: "Observações Avançadas", icon: Lightbulb, group: "Projeto" },
+  { to: "/security", label: "Segurança", icon: ShieldCheck, group: "Projeto" },
 ] as const;
+
+const navGroups = Array.from(new Set(nav.map((n) => n.group)));
 
 export function AppShell({ children }: { children: ReactNode }) {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
