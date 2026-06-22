@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { AppShell, PageBody, PageHeader, SectionTitle } from "@/components/AppShell";
-import { ArrowRight, Mic, Bot } from "lucide-react";
+import { ArrowRight, Mic, Bot, Network } from "lucide-react";
+import { hermesInputs, hermesTools, hermesOutputs } from "@/lib/kerberus-data";
 
 export const Route = createFileRoute("/flows")({
   head: () => ({
@@ -8,22 +9,22 @@ export const Route = createFileRoute("/flows")({
       { title: "Fluxos — Kerberus v2.0" },
       {
         name: "description",
-        content: "Fluxo de voz (Alexa/Nest → Whisper → Ollama → Piper) e fluxo dos agentes Hermes/Mimo/OpenClaw.",
+        content: "Fluxos de voz, agentes e do Hermes — coração de orquestração do Kerberus.",
       },
       { property: "og:title", content: "Fluxos — Kerberus v2.0" },
-      { property: "og:description", content: "Voz + agentes de IA." },
+      { property: "og:description", content: "Voz, agentes e Hermes." },
     ],
   }),
   component: FlowsPage,
 });
 
 const voiceSteps = [
-  { label: "Alexa / Nest", sub: "Captura áudio (VLAN Voice)" },
-  { label: "Voice Gateway", sub: "Normalização + roteamento" },
+  { label: "Alexa / Nest", sub: "Captura (VLAN Voice)" },
+  { label: "Voice Gateway", sub: "Normalização" },
   { label: "Whisper", sub: "STT local" },
   { label: "Ollama", sub: "LLM local" },
   { label: "Piper", sub: "TTS local" },
-  { label: "Dispositivo", sub: "Resposta de áudio" },
+  { label: "Dispositivo", sub: "Resposta áudio" },
 ];
 
 const agentSteps = [
@@ -40,23 +41,72 @@ function FlowsPage() {
       <PageHeader
         eyebrow="Capítulo 04"
         title="Fluxos"
-        description="Pipelines de voz e de agentes de IA, todos processados localmente quando possível."
+        description="Pipelines de voz, agentes e Hermes. Tudo processado localmente quando possível."
       />
       <PageBody>
-        <FlowSection
-          number="04.1"
-          title="Fluxo de voz"
-          icon={<Mic className="h-4 w-4 text-accent" />}
-          steps={voiceSteps}
-        />
-        <FlowSection
-          number="04.2"
-          title="Fluxo dos agentes"
-          icon={<Bot className="h-4 w-4 text-accent" />}
-          steps={agentSteps}
-        />
+        <FlowSection number="04.1" title="Fluxo de voz" icon={<Mic className="h-4 w-4 text-accent" />} steps={voiceSteps} />
+        <FlowSection number="04.2" title="Fluxo dos agentes" icon={<Bot className="h-4 w-4 text-accent" />} steps={agentSteps} />
+
+        {/* Hermes flow */}
+        <section>
+          <SectionTitle number="04.3" title="Fluxo do Hermes" hint="Coração do projeto" />
+          <div className="tech-card p-6">
+            <div className="flex items-center gap-2 mb-5 text-sm text-muted-foreground">
+              <Network className="h-4 w-4 text-accent" />
+              <span>Orquestração ponta-a-ponta</span>
+            </div>
+
+            <div className="grid lg:grid-cols-[1fr_auto_1fr_auto_1fr] items-stretch gap-4">
+              <Column title="Entradas" items={hermesInputs} />
+              <Arrow />
+              <div className="space-y-3">
+                <div className="rounded-md bg-primary text-primary-foreground px-4 py-3 text-center">
+                  <div className="mono text-[10px] uppercase tracking-wider opacity-80">Núcleo</div>
+                  <div className="font-semibold">Hermes</div>
+                </div>
+                <div className="grid grid-cols-3 gap-2">
+                  {hermesTools.map((t) => (
+                    <div key={t.name} className="rounded-md border border-border bg-surface p-2 text-center">
+                      <div className="font-semibold text-xs">{t.name}</div>
+                      <div className="text-[10px] text-muted-foreground mt-0.5">{t.desc}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <Arrow />
+              <Column title="Saídas" items={hermesOutputs} />
+            </div>
+          </div>
+        </section>
       </PageBody>
     </AppShell>
+  );
+}
+
+function Column({ title, items }: { title: string; items: string[] }) {
+  return (
+    <div>
+      <div className="mono text-[10px] uppercase tracking-wider text-muted-foreground mb-2">{title}</div>
+      <ul className="space-y-2">
+        {items.map((it, i) => (
+          <li
+            key={it}
+            className="rounded-md border border-border bg-surface px-3 py-2 text-sm animate-fade-up"
+            style={{ animationDelay: `${i * 50}ms` }}
+          >
+            {it}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+function Arrow() {
+  return (
+    <div className="hidden lg:flex items-center justify-center">
+      <ArrowRight className="h-5 w-5 text-accent" />
+    </div>
   );
 }
 
