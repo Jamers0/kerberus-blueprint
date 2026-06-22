@@ -14,6 +14,7 @@ import { Route as RoadmapRouteImport } from './routes/roadmap'
 import { Route as PhasesRouteImport } from './routes/phases'
 import { Route as NetworkRouteImport } from './routes/network'
 import { Route as FlowsRouteImport } from './routes/flows'
+import { Route as AdvancedRouteImport } from './routes/advanced'
 import { Route as IndexRouteImport } from './routes/index'
 
 const TopologyRoute = TopologyRouteImport.update({
@@ -41,6 +42,11 @@ const FlowsRoute = FlowsRouteImport.update({
   path: '/flows',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdvancedRoute = AdvancedRouteImport.update({
+  id: '/advanced',
+  path: '/advanced',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -49,6 +55,7 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/advanced': typeof AdvancedRoute
   '/flows': typeof FlowsRoute
   '/network': typeof NetworkRoute
   '/phases': typeof PhasesRoute
@@ -57,6 +64,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/advanced': typeof AdvancedRoute
   '/flows': typeof FlowsRoute
   '/network': typeof NetworkRoute
   '/phases': typeof PhasesRoute
@@ -66,6 +74,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/advanced': typeof AdvancedRoute
   '/flows': typeof FlowsRoute
   '/network': typeof NetworkRoute
   '/phases': typeof PhasesRoute
@@ -74,12 +83,27 @@ export interface FileRoutesById {
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/flows' | '/network' | '/phases' | '/roadmap' | '/topology'
+  fullPaths:
+    | '/'
+    | '/advanced'
+    | '/flows'
+    | '/network'
+    | '/phases'
+    | '/roadmap'
+    | '/topology'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/flows' | '/network' | '/phases' | '/roadmap' | '/topology'
+  to:
+    | '/'
+    | '/advanced'
+    | '/flows'
+    | '/network'
+    | '/phases'
+    | '/roadmap'
+    | '/topology'
   id:
     | '__root__'
     | '/'
+    | '/advanced'
     | '/flows'
     | '/network'
     | '/phases'
@@ -89,6 +113,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AdvancedRoute: typeof AdvancedRoute
   FlowsRoute: typeof FlowsRoute
   NetworkRoute: typeof NetworkRoute
   PhasesRoute: typeof PhasesRoute
@@ -133,6 +158,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof FlowsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/advanced': {
+      id: '/advanced'
+      path: '/advanced'
+      fullPath: '/advanced'
+      preLoaderRoute: typeof AdvancedRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -145,6 +177,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AdvancedRoute: AdvancedRoute,
   FlowsRoute: FlowsRoute,
   NetworkRoute: NetworkRoute,
   PhasesRoute: PhasesRoute,
