@@ -9,18 +9,39 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as VisionRouteImport } from './routes/vision'
 import { Route as TopologyRouteImport } from './routes/topology'
+import { Route as StorageRouteImport } from './routes/storage'
+import { Route as ServicesRouteImport } from './routes/services'
 import { Route as SecurityRouteImport } from './routes/security'
 import { Route as RoadmapRouteImport } from './routes/roadmap'
+import { Route as ProxmoxRouteImport } from './routes/proxmox'
 import { Route as PhasesRouteImport } from './routes/phases'
 import { Route as NetworkRouteImport } from './routes/network'
+import { Route as JarvisRouteImport } from './routes/jarvis'
+import { Route as InventoryRouteImport } from './routes/inventory'
 import { Route as FlowsRouteImport } from './routes/flows'
 import { Route as AdvancedRouteImport } from './routes/advanced'
 import { Route as IndexRouteImport } from './routes/index'
 
+const VisionRoute = VisionRouteImport.update({
+  id: '/vision',
+  path: '/vision',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TopologyRoute = TopologyRouteImport.update({
   id: '/topology',
   path: '/topology',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StorageRoute = StorageRouteImport.update({
+  id: '/storage',
+  path: '/storage',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ServicesRoute = ServicesRouteImport.update({
+  id: '/services',
+  path: '/services',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SecurityRoute = SecurityRouteImport.update({
@@ -33,6 +54,11 @@ const RoadmapRoute = RoadmapRouteImport.update({
   path: '/roadmap',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ProxmoxRoute = ProxmoxRouteImport.update({
+  id: '/proxmox',
+  path: '/proxmox',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PhasesRoute = PhasesRouteImport.update({
   id: '/phases',
   path: '/phases',
@@ -41,6 +67,16 @@ const PhasesRoute = PhasesRouteImport.update({
 const NetworkRoute = NetworkRouteImport.update({
   id: '/network',
   path: '/network',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const JarvisRoute = JarvisRouteImport.update({
+  id: '/jarvis',
+  path: '/jarvis',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InventoryRoute = InventoryRouteImport.update({
+  id: '/inventory',
+  path: '/inventory',
   getParentRoute: () => rootRouteImport,
 } as any)
 const FlowsRoute = FlowsRouteImport.update({
@@ -63,32 +99,50 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/advanced': typeof AdvancedRoute
   '/flows': typeof FlowsRoute
+  '/inventory': typeof InventoryRoute
+  '/jarvis': typeof JarvisRoute
   '/network': typeof NetworkRoute
   '/phases': typeof PhasesRoute
+  '/proxmox': typeof ProxmoxRoute
   '/roadmap': typeof RoadmapRoute
   '/security': typeof SecurityRoute
+  '/services': typeof ServicesRoute
+  '/storage': typeof StorageRoute
   '/topology': typeof TopologyRoute
+  '/vision': typeof VisionRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/advanced': typeof AdvancedRoute
   '/flows': typeof FlowsRoute
+  '/inventory': typeof InventoryRoute
+  '/jarvis': typeof JarvisRoute
   '/network': typeof NetworkRoute
   '/phases': typeof PhasesRoute
+  '/proxmox': typeof ProxmoxRoute
   '/roadmap': typeof RoadmapRoute
   '/security': typeof SecurityRoute
+  '/services': typeof ServicesRoute
+  '/storage': typeof StorageRoute
   '/topology': typeof TopologyRoute
+  '/vision': typeof VisionRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/advanced': typeof AdvancedRoute
   '/flows': typeof FlowsRoute
+  '/inventory': typeof InventoryRoute
+  '/jarvis': typeof JarvisRoute
   '/network': typeof NetworkRoute
   '/phases': typeof PhasesRoute
+  '/proxmox': typeof ProxmoxRoute
   '/roadmap': typeof RoadmapRoute
   '/security': typeof SecurityRoute
+  '/services': typeof ServicesRoute
+  '/storage': typeof StorageRoute
   '/topology': typeof TopologyRoute
+  '/vision': typeof VisionRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -96,51 +150,96 @@ export interface FileRouteTypes {
     | '/'
     | '/advanced'
     | '/flows'
+    | '/inventory'
+    | '/jarvis'
     | '/network'
     | '/phases'
+    | '/proxmox'
     | '/roadmap'
     | '/security'
+    | '/services'
+    | '/storage'
     | '/topology'
+    | '/vision'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/advanced'
     | '/flows'
+    | '/inventory'
+    | '/jarvis'
     | '/network'
     | '/phases'
+    | '/proxmox'
     | '/roadmap'
     | '/security'
+    | '/services'
+    | '/storage'
     | '/topology'
+    | '/vision'
   id:
     | '__root__'
     | '/'
     | '/advanced'
     | '/flows'
+    | '/inventory'
+    | '/jarvis'
     | '/network'
     | '/phases'
+    | '/proxmox'
     | '/roadmap'
     | '/security'
+    | '/services'
+    | '/storage'
     | '/topology'
+    | '/vision'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AdvancedRoute: typeof AdvancedRoute
   FlowsRoute: typeof FlowsRoute
+  InventoryRoute: typeof InventoryRoute
+  JarvisRoute: typeof JarvisRoute
   NetworkRoute: typeof NetworkRoute
   PhasesRoute: typeof PhasesRoute
+  ProxmoxRoute: typeof ProxmoxRoute
   RoadmapRoute: typeof RoadmapRoute
   SecurityRoute: typeof SecurityRoute
+  ServicesRoute: typeof ServicesRoute
+  StorageRoute: typeof StorageRoute
   TopologyRoute: typeof TopologyRoute
+  VisionRoute: typeof VisionRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/vision': {
+      id: '/vision'
+      path: '/vision'
+      fullPath: '/vision'
+      preLoaderRoute: typeof VisionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/topology': {
       id: '/topology'
       path: '/topology'
       fullPath: '/topology'
       preLoaderRoute: typeof TopologyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/storage': {
+      id: '/storage'
+      path: '/storage'
+      fullPath: '/storage'
+      preLoaderRoute: typeof StorageRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/services': {
+      id: '/services'
+      path: '/services'
+      fullPath: '/services'
+      preLoaderRoute: typeof ServicesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/security': {
@@ -157,6 +256,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RoadmapRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/proxmox': {
+      id: '/proxmox'
+      path: '/proxmox'
+      fullPath: '/proxmox'
+      preLoaderRoute: typeof ProxmoxRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/phases': {
       id: '/phases'
       path: '/phases'
@@ -169,6 +275,20 @@ declare module '@tanstack/react-router' {
       path: '/network'
       fullPath: '/network'
       preLoaderRoute: typeof NetworkRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/jarvis': {
+      id: '/jarvis'
+      path: '/jarvis'
+      fullPath: '/jarvis'
+      preLoaderRoute: typeof JarvisRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/inventory': {
+      id: '/inventory'
+      path: '/inventory'
+      fullPath: '/inventory'
+      preLoaderRoute: typeof InventoryRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/flows': {
@@ -199,11 +319,17 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AdvancedRoute: AdvancedRoute,
   FlowsRoute: FlowsRoute,
+  InventoryRoute: InventoryRoute,
+  JarvisRoute: JarvisRoute,
   NetworkRoute: NetworkRoute,
   PhasesRoute: PhasesRoute,
+  ProxmoxRoute: ProxmoxRoute,
   RoadmapRoute: RoadmapRoute,
   SecurityRoute: SecurityRoute,
+  ServicesRoute: ServicesRoute,
+  StorageRoute: StorageRoute,
   TopologyRoute: TopologyRoute,
+  VisionRoute: VisionRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
