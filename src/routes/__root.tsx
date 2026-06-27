@@ -90,6 +90,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
+      { name: "twitter:title", content: "Kerberus v2.0 — Documentação Técnica" },
+      { name: "description", content: "Kerberus Blueprint is a technical documentation application that visualizes and details a robust project infrastructure." },
+      { property: "og:description", content: "Kerberus Blueprint is a technical documentation application that visualizes and details a robust project infrastructure." },
+      { name: "twitter:description", content: "Kerberus Blueprint is a technical documentation application that visualizes and details a robust project infrastructure." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/57194d3a-e30e-4597-9042-baf131f13fa0/id-preview-652edd2d--9c6cbe31-76b2-42f7-a82f-2cc00cf056e8.lovable.app-1782125149199.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/57194d3a-e30e-4597-9042-baf131f13fa0/id-preview-652edd2d--9c6cbe31-76b2-42f7-a82f-2cc00cf056e8.lovable.app-1782125149199.png" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
